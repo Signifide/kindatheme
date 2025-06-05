@@ -11,18 +11,138 @@
         <div class="row">
           <div class="col-md-11">
             <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" 
-            data-delay-in=".1" style="text-align: left;">Technology for business efficiency, growth, access to finance and employment creation</h1>
-            <p class="text-muted mb-6" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" 
-            data-delay-in=".4" style="font-size:22px">Integrated Tech Solutions for Startups, SMEs, Education Services and Health Services. </p>
-            <p class="text-muted mb-6" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4" style="font-size:22px">Wide selection of Edtech, HealthTech or  EnterpriseTech Modules,  integrated with Accounting, HR, Payroll and CRM..</p>
-            <a href="/kindatech/signup" class="btn btn-primary" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".7">Get Started</a>
+            data-delay-in=".1" style="text-align: left;">
+              <span class="text-highlight">Technology</span> for business <span class="typing-effect" data-words='["efficiency","growth","finance access","employment"]'></span>
+            </h1>
+            
+            <p class="text-muted mb-4 animated-text" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" 
+            data-delay-in=".4" style="font-size:22px">
+              <i class="fas fa-rocket mr-2 text-primary"></i> Integrated Tech Solutions for Startups, SMEs, Education and Health Services
+            </p>
+            
+            <p class="text-muted mb-4 animated-text" data-animation-out="fadeOutRight" data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft" 
+            data-delay-in=".6" style="font-size:22px">
+              <i class="fas fa-shield-alt mr-2 text-info"></i>From <span class="badge badge-pill badge-primary">EdTech</span> to <span class="badge badge-pill badge-success">HealthTech</span> and <span class="badge badge-pill badge-danger">Enterprise Solutions</span>, we provide <strong>end-to-end platforms</strong> integrated with accounting, HR, payroll and CRM.
+            </p>
+            
+            <div class="d-flex flex-wrap gap-3 mt-5" data-animation-in="zoomIn" data-delay-in="1">
+              <a href="/kindatech/signup" class="btn btn-primary btn-lg pulse-animation">
+                <i class="fas fa-play-circle mr-2"></i> Get Started
+              </a>
+
+            </div>
+            
+
           </div>
         </div>
       </div>
-
   </div>
 </section>
 <!-- /hero slider -->
 
+<style>
+  .text-highlight {
+    color: #4fc1e9;
+    text-shadow: 0 0 10px rgba(79, 193, 233, 0.5);
+  }
+  
+  .typing-effect {
+    border-right: 3px solid white;
+    animation: blink-caret 0.75s step-end infinite;
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+  }
+  
+  .pulse-animation {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .scroll-down-btn:hover {
+    transform: translateY(5px);
+    transition: all 0.3s ease;
+  }
+  
+  .floating-icons i {
+    font-size: 2rem;
+    margin: 0 15px;
+    opacity: 0.7;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .floating-icons i:nth-child(1) { animation-delay: 0s; color: #4fc1e9; }
+  .floating-icons i:nth-child(2) { animation-delay: 0.5s; color: #a0d468; }
+  .floating-icons i:nth-child(3) { animation-delay: 1s; color: #ffce54; }
+  .floating-icons i:nth-child(4) { animation-delay: 1.5s; color: #ed5565; }
+  
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+  
+  .animated-text:hover {
+    transform: translateX(5px);
+    transition: all 0.3s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Typing effect
+    const typingElement = document.querySelector('.typing-effect');
+    if (typingElement) {
+      const words = JSON.parse(typingElement.getAttribute('data-words'));
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      
+      function type() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+          typingElement.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingElement.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+        
+        if (!isDeleting && charIndex === currentWord.length) {
+          isDeleting = true;
+          setTimeout(type, 1500);
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(type, 500);
+        } else {
+          setTimeout(type, isDeleting ? 50 : 150);
+        }
+      }
+      
+      setTimeout(type, 1000);
+    }
+    
+    // Scroll down button
+    const scrollButtons = document.querySelectorAll('.scroll-down-btn');
+    scrollButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  });
+</script>
 
 {% endblock %}
